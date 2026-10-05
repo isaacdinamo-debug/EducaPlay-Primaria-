@@ -1,0 +1,6 @@
+# Las imágenes y videos originales en 2K (unos 160 MB) se guardan aparte:
+# son la fuente para volver a exportar, no las carga la página.
+arte/originales/
+.netlify/
+.DS_Store
+*.parcial

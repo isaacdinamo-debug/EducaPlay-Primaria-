@@ -1,0 +1,118 @@
+/* Maquetación de las actividades, heredada del prototipo original y
+   repintada con la paleta de Kapi. estilos.css se carga después y manda. */
+.buddy{position:absolute;left:10px;bottom:6px;width:96px;height:120px;z-index:4;pointer-events:none;transform-origin:bottom center}
+.buddy svg{width:100%;height:100%;overflow:visible}
+.buddy.happy{animation:hop .9s ease 2}
+.buddy.think{animation:tilt 1.1s ease}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-34px) rotate(-6deg)}}
+@keyframes tilt{30%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}}
+.scene{position:relative;flex:1;display:grid;grid-template-columns:minmax(220px,1fr) minmax(200px,.8fr) minmax(220px,1fr);gap:8px;align-items:end;padding:14px 14px 20px;padding-left:96px}
+.treewrap{position:relative;width:100%;max-width:300px;aspect-ratio:300/315;justify-self:center}
+.tree-svg{width:100%;height:100%;display:block}
+.tf{position:absolute;width:15%;aspect-ratio:1;transform:translate(0,0)}
+.fruit{width:54px;height:54px;background:none;border:0;padding:0;touch-action:none;cursor:grab;flex:none;position:relative}
+.fruit svg{width:100%;height:100%;filter:drop-shadow(0 3px 2px rgba(0,0,0,.28));pointer-events:none}
+.fruit.tf{width:15%;height:auto}
+.fruit.dragging{z-index:50;cursor:grabbing}
+.fruit.fall{animation:fallin .55s cubic-bezier(.3,1.4,.5,1)}
+@keyframes fallin{from{transform:translateY(-240px);opacity:.3}to{transform:none;opacity:1}}
+.fruit.extra{animation:wig .5s ease 3}
+@keyframes wig{25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+.mid{display:grid;justify-items:center;gap:12px;padding-bottom:6px}
+.dice{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:6px;width:112px;height:112px;padding:12px;background:#fff;border-radius:22px;border:4px solid #2b1607;box-shadow:0 6px 0 #2b1607}
+.dice.sm{width:72px;height:72px;padding:8px;gap:3px;border-width:3px;border-radius:14px}
+.dice i{border-radius:50%;background:transparent;display:block;transition:background .2s,transform .2s}
+.dice i.pip{background:#2b1607}
+.dice i.pip.lit{background:#52633b;transform:scale(1.15)}
+.dice i.pip.miss{background:#b8473a;animation:pulse 0.8s ease 3}
+.dice.rolling{animation:shake .12s linear infinite}
+.dice.blank i{background:#ddd}
+@keyframes shake{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+.rounds{display:flex;gap:6px}
+.rounds i{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.7);border:2px solid #2b1607;display:block}
+.rounds i.on{background:#efbb3f}
+.rounds i.ok{background:#52633b}
+.cestawrap{display:grid;gap:12px;justify-items:center}
+.cesta{position:relative;width:100%;max-width:270px;height:190px;display:flex;align-items:flex-end;justify-content:center}
+.cesta::before{content:"";position:absolute;left:4%;right:4%;bottom:0;height:62%;border-radius:8px 8px 38px 38px;background:repeating-linear-gradient(45deg,#b98545 0 8px,#a97538 8px 16px);box-shadow:inset 0 10px 0 rgba(0,0,0,.14);z-index:1}
+.cesta::after{content:"";position:absolute;left:1%;right:1%;bottom:56%;height:14px;border-radius:99px;background:#8a5a25;z-index:3}
+.cesta-in{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:0;justify-content:center;align-content:flex-end;width:88%;padding-bottom:44px;min-height:100%}
+.cesta-in .fruit{width:46px;height:46px;margin:0 -3px -12px}
+.cesta.over{outline:4px dashed #fff;outline-offset:4px;border-radius:18px}
+.cesta.ok::before{box-shadow:0 0 0 6px #f7dc8e,inset 0 10px 0 rgba(0,0,0,.14)}
+.cesta .cwho{position:absolute;top:-4px;left:0;right:0;text-align:center;font-family:var(--f-kid);font-weight:800;color:#3b2a22;z-index:4;text-shadow:0 2px 0 #fff}
+.duo{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:end;padding:14px 14px 10px 100px}
+.pile{position:relative;height:190px;background:rgba(255,255,255,.35);border-radius:22px;border:3px dashed rgba(255,255,255,.9)}
+.pile .fruit{position:absolute;width:46px;height:46px}
+.pile .lbl{position:absolute;top:-16px;left:14px;background:#fff;border-radius:99px;padding:.1em .8em;font-family:var(--f-kid);font-weight:800;color:#3b2a22}
+.align{display:grid;gap:6px;justify-content:center;padding:10px 10px;background:rgba(255,255,255,.55);border-radius:18px;margin:0 14px}
+.align .c{display:grid;gap:2px;justify-items:center;position:relative;padding:2px 4px;border-radius:10px}
+.align .c .fruit{width:42px;height:42px}
+.align .c.par::before{content:"";position:absolute;left:50%;top:22%;bottom:22%;border-left:3px dotted #52633b}
+.align .c.solo{background:rgba(214,51,43,.16);outline:3px dashed #b8473a}
+.align .c .gap{width:42px;height:42px}
+.answers{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:8px 14px 14px 100px}
+.ans{display:inline-flex;align-items:center;gap:.5em;min-height:64px;padding:.3em 1.2em;border-radius:22px;border:3px solid #fff;background:rgba(255,255,255,.92);color:#3b2a22;font-family:var(--f-kid);font-weight:800;font-size:1.25rem;box-shadow:0 6px 0 #d9c7a7;transition:transform .12s}
+.ans:hover{transform:translateY(-2px)}
+.ans.good{background:#e4edcf;border-color:#52633b}
+.ans.bad{animation:wig .4s ease 1;background:#f6dcd6;border-color:#b8473a}
+.ans svg{width:34px;height:34px}
+.qtxt{font-family:var(--f-kid);font-weight:800;font-size:1.6rem;text-align:center;color:#3b2a22;background:rgba(255,255,255,.8);border-radius:18px;padding:.25em .9em;margin:12px auto 0;width:fit-content;max-width:92%}
+.nest{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;padding:14px}
+.slot{width:104px;height:120px;border-radius:50% 50% 40% 40%;background:#e0b877;border:4px solid #a97538;display:grid;place-items:center;position:relative;box-shadow:inset 0 -12px 0 rgba(0,0,0,.12)}
+.slot .chick{font-size:3rem;line-height:1}
+.slot .fruit{position:absolute;bottom:-14px;right:-8px;width:48px;height:48px}
+.slot.over{outline:4px dashed #fff;outline-offset:3px}
+.slot.full{background:#f7d58c}
+.slot.miss{animation:pulse .8s ease 3}
+.pool{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:70px;padding:10px;background:rgba(255,255,255,.5);border-radius:18px;margin:0 14px;width:fit-content;max-width:calc(100% - 28px);align-self:center;position:relative}
+.pool .fruit.extra{outline:3px dashed #b8473a;border-radius:50%}
+.cuad{display:grid;justify-items:center;gap:12px;padding:14px 14px 14px 100px}
+.book{width:min(470px,96%);min-height:150px;background:#fffdf5;border:4px solid #8a5a25;border-radius:14px;padding:14px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;background-image:repeating-linear-gradient(transparent 0 38px,#cfe1ee 38px 40px)}
+.mk{width:26px;height:26px;border-radius:50%;background:#7b7f86;display:block;animation:popin .2s both;transform-box:fill-box}
+.mk.p2{width:8px;height:32px;border-radius:3px;background:#2b1607}
+.mk.p3{width:12px;height:12px;background:#246e78;margin:7px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.marker{border:3px solid #fff;border-radius:18px;background:rgba(255,255,255,.9);padding:.3em .8em;font-family:var(--f-kid);font-weight:800;color:#3b2a22;display:inline-flex;align-items:center;gap:.5em;min-height:52px}
+.marker[aria-pressed="true"]{background:#f7dc8e;border-color:#c88a1d}
+/* actividades genéricas */
+.act{flex:1;display:flex;flex-direction:column;align-items:center;gap:14px;padding:16px 14px 16px 100px}
+.strip{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;min-height:130px;width:100%;padding:10px;border-radius:20px;background:rgba(255,255,255,.55);border:3px dashed rgba(255,255,255,.95)}
+.pcard{width:130px;min-height:130px;border-radius:20px;background:#fff;border:3px solid #fff;box-shadow:0 6px 0 #d9c7a7;display:grid;place-items:center;gap:2px;padding:8px;text-align:center;font-family:var(--f-kid);font-weight:700;font-size:1.05rem;color:#3b2a22;line-height:1.1}
+.pcard .em{font-size:3.2rem;line-height:1}
+button.pcard{cursor:pointer}
+.pcard.bad{animation:wig .4s ease 1}
+.pcard.in{animation:popin .4s both;background:#fff9dc}
+.slotmark{width:130px;min-height:130px;border-radius:20px;border:3px dashed #2b1607;display:grid;place-items:center;font-family:var(--f-kid);font-weight:800;font-size:1.6rem;color:rgba(0,0,0,.35)}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%}
+.bin{min-height:190px;border-radius:24px;background:rgba(255,255,255,.7);border:4px dashed #fff;padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;justify-content:center;transition:background .15s;cursor:pointer}
+.bin h4{width:100%;text-align:center;font-family:var(--f-kid);font-size:1.4rem;color:#3b2a22}
+.bin.over,.bin.tapready{background:rgba(255,255,255,.95);border-color:#efbb3f}
+.bin .pcard{width:96px;min-height:96px;font-size:.9rem}
+.bin .pcard .em{font-size:2.4rem}
+.chipbox{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.chipbox .pcard{width:110px;min-height:110px}
+.pcard.sel{outline:5px solid #efbb3f;transform:translateY(-4px)}
+.pcard.drag{touch-action:none}
+.pcard.dragging{z-index:60}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:min(560px,100%)}
+.pair .col{display:grid;gap:12px}
+.pair .pcard{width:100%;min-height:86px;grid-auto-flow:column;justify-content:center;gap:12px}
+.pair .pcard.matched{background:#e4edcf;border-color:#52633b}
+.pair .pcard.sel{outline:5px solid #efbb3f}
+.lancha{position:relative;width:min(560px,100%);display:grid;justify-items:center;gap:6px}
+.lancha .hull{position:relative;width:100%;padding:16px 16px 40px;background:#fff;border-radius:18px 18px 90px 90px;border:5px solid #b83a2e;box-shadow:0 8px 0 #8a2f25}
+.seats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.seat{width:52px;height:52px;border-radius:50%;border:3px dashed #7b8790;display:grid;place-items:center;font-size:1.8rem;background:#f1f6f9}
+.seat.in{border-style:solid;border-color:#246e78;background:#d9f0ed;animation:popin .3s both}
+.seat.over{outline:4px dashed #efbb3f}
+.dock{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;background:rgba(255,255,255,.6);padding:10px;border-radius:18px;min-width:200px}
+.pax{width:56px;height:56px;border-radius:50%;border:3px solid #246e78;background:#fff;font-size:2rem;display:grid;place-items:center;padding:0;touch-action:none}
+.treewrap>div{position:absolute;inset:0}
+.align .c .fruit{display:block}
+.stage .fruit.tf{position:absolute}
+.duo .cesta{justify-self:center}
+.pile .fruit{pointer-events:none}
+.fruit[disabled]{cursor:default}
+.pcard[disabled]{opacity:1;cursor:default}
+.bin .pcard{pointer-events:none}

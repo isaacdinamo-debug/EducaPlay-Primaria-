@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Educaplay Primaria</title>
+<link rel="icon" href="arte/marca/icono.png">
+<link rel="preload" href="fuentes/baloo-2-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="actividades.css?v=202610051010">
+<link rel="stylesheet" href="estilos.css?v=202610051010">
+</head>
+<body>
+<div id="app" data-zone="home"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- El orden importa: el arte primero, después los datos que lo nombran,
+     las actividades, las vistas y por último el arranque. -->
+<script src="js/arte.js?v=202610051010"></script>
+<script src="js/datos.js?v=202610051010"></script>
+<script src="js/actividades.js?v=202610051010"></script>
+<script src="js/vistas.js?v=202610051010"></script>
+<script src="js/app.js?v=202610051010"></script>
+</body>
+</html>
