@@ -1,0 +1,37 @@
+[
+  {
+    "name": "arandu",
+    "before": 5.1201,
+    "after": 0.9829
+  },
+  {
+    "name": "tortuga",
+    "before": 1.5264,
+    "after": 0.406
+  },
+  {
+    "name": "garza",
+    "before": 2.0166,
+    "after": 0.4439
+  },
+  {
+    "name": "kapi",
+    "before": 2.7725,
+    "after": 0.9568
+  },
+  {
+    "name": "yarara",
+    "before": 1.5088,
+    "after": 0.546
+  },
+  {
+    "name": "caraya",
+    "before": 1.784,
+    "after": 0.3958
+  },
+  {
+    "name": "yabiru",
+    "before": 2.1776,
+    "after": 0.5376
+  }
+]

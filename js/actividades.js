@@ -346,7 +346,7 @@ STN['f-cuaderno'] = (ctx, root) => {
    ========================================================= */
 STN.ordenar = (ctx, root) => {
   const st=ctx.st, N=st.items.length; let next=0;
-  root.innerHTML = `<div class="act"><div class="strip" id="strip">${st.items.map((_,i)=>`<div class="slotmark" data-s="${i}">${i+1}</div>`).join('')}</div>
+  root.innerHTML = `<div class="act act-ordenar"><div class="strip" id="strip">${st.items.map((_,i)=>`<div class="slotmark" data-s="${i}">${i+1}</div>`).join('')}</div>
     <div class="strip" id="cards">${st.order.map(i=>`<button class="pcard" data-i="${i}"><span class="em">${dib(st.items[i].em)}</span>${esc(st.items[i].t)}</button>`).join('')}</div></div>`;
   ctx.say(st.intro);
   $$('#cards .pcard',root).forEach(c=>c.onclick=()=>{

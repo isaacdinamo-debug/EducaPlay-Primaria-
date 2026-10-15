@@ -26,23 +26,46 @@ const pie = () => `<footer class="pie no-print">
 
 /* ---------- Bienvenida: el paisaje de los Esteros a pantalla completa ---------- */
 function vIntro(){
-  /* Editorial y sin cajas: el logo oficial, "Primaria" dibujado sobre un
-     trazo de pincel, la frase suelta con tres palabras subrayadas, y el
-     botón. Todo entra escalonado; tocar la frase la lee en voz alta. */
-  /* la puntuación va pegada a la palabra, para que nunca quede sola al principio de un renglón */
-  const palabra = (t, n, p='') => `<span class="ip-par"><span class="ip ip${n}">${t}<img src="arte/marca/subrayado-${n}.webp" alt="" aria-hidden="true"></span>${p}</span>`;
-  return `<section class="intro">${SALTO}
-   ${SIN_MOVIMIENTO?'':`<video class="intro-video" src="arte/esteros.mp4" poster="arte/esteros.webp" autoplay loop muted playsinline aria-hidden="true"></video>`}
+  const amigos = [
+    ['arandu','Arandu · Sabio'],['tortuga','Yvy'],['garza','Yrupé'],
+    ['kapi','Kapi'],['yarara','Mbyja'],['caraya','Yvytu'],
+    ['yabiru','Ñasaindy'],['guacamayo','Tataendy']
+  ];
+  const figura = (id, i) => {
+    if(id==='guacamayo') return `<img class="tataendy-vuelo" src="arte/bienvenida/tataendy-vuelo-v2.webp" alt="" width="1536" height="1024" draggable="false">`;
+    const poster = `arte/bienvenida/${id}.webp`;
+    if(SIN_MOVIMIENTO || !VIDEO_SIN_FONDO) return `<img src="${poster}" alt="" draggable="false">`;
+    return `<video src="arte/bienvenida/loops-v3/${id}.webm" poster="${poster}" data-loop-offset="${(i*.83).toFixed(2)}" autoplay loop muted playsinline aria-hidden="true"></video>`;
+  };
+  return `<section class="intro intro-ibera">${SALTO}
+   <picture class="bienvenida-paisaje" aria-hidden="true"><source media="(min-aspect-ratio: 21/10)" srcset="arte/bienvenida/estero-panoramico-v2.webp"><source media="(max-aspect-ratio: 4/5)" srcset="arte/bienvenida/estero-vertical-v3.webp"><img src="arte/bienvenida/estero-horizontal-v2.webp" alt="" fetchpriority="high" width="1672" height="941"></picture>
    <header class="intro-inst"><span class="pie-logo">Gobierno de la Provincia de Corrientes</span><span class="pie-logo">Ministerio de Educación</span></header>
    <main class="intro-c" id="main" tabindex="-1">
-     <h1 class="intro-marca">
-       <img class="intro-wm" src="arte/marca/educaplay.webp" alt="Educaplay" width="1200" height="232">
-       <span class="intro-prim"><img class="intro-pincel" src="arte/marca/pincel.webp" alt="" aria-hidden="true"><img class="intro-primaria" src="arte/marca/primaria.webp" alt="Primaria"></span>
-     </h1>
-     <button class="intro-tag" data-act="say" data-text="Un lugar para explorar, aprender y descubrir.">Un lugar para ${palabra('explorar',1,',')} ${palabra('aprender',2)} y ${palabra('descubrir',3,'.')}</button>
-     <a class="intro-go" href="#/inicio"><span class="intro-go-ico">${boton('jugar')}</span><span>Comenzar</span></a>
-   </main>
-   <div class="intro-kapi" aria-hidden="true">${kapiPose('saluda','respira')}</div></section>`;
+     <div class="bienvenida-cabecera">
+       <h1 class="intro-marca">
+         <img class="intro-wm" src="arte/marca/educaplay.webp" alt="Educaplay" width="1200" height="233">
+         <span class="intro-prim"><img class="intro-primaria" src="arte/marca/primaria.webp" alt="Primaria" width="748" height="316"></span>
+       </h1>
+       <p class="sr">Un lugar para explorar, aprender y descubrir junto a los animales del Iberá.</p>
+       <div class="bienvenida-entrada"><a class="intro-go" href="#/inicio"><span class="intro-go-ico" aria-hidden="true"><svg viewBox="0 0 28 32"><path d="M5 3Q3 2 3 5v22q0 3 3 1l19-11q2-1 0-3Z"/></svg></span><span>Comenzar</span><svg class="intro-go-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a></div>
+     </div>
+     <div class="bienvenida-amigos" role="group" aria-label="Conocé a los compañeros del Iberá">
+       ${amigos.map(([id,nombre],i)=>`<figure class="bienvenida-amigo amigo-${id}"><div class="bienvenida-figura" aria-hidden="true">${figura(id,i)}</div><figcaption>${nombre}</figcaption></figure>`).join('')}
+     </div>
+   </main></section>`;
+}
+
+/* Cada compañero comienza en un momento distinto de su loop cerrado. */
+function iniciarBienvenida(){
+  document.querySelectorAll('.intro-ibera video[data-loop-offset]').forEach(video=>{
+    const iniciar=()=>{
+      if(Number.isFinite(video.duration) && video.duration>0){
+        video.currentTime=Number(video.dataset.loopOffset)%video.duration;
+      }
+    };
+    if(video.readyState>=1) iniciar();
+    else video.addEventListener('loadedmetadata',iniciar,{once:true});
+  });
 }
 
 /* ---------- Selección de entrada: Descubrir manda (P40) ---------- */
@@ -53,9 +76,10 @@ function vInicio(){
    <p class="lead">Un mismo territorio, tres maneras de recorrerlo. Cada espacio tiene su propia mirada, pero los tres están conectados.</p>
    <div class="doors">
     <a class="door descubrir" href="#/descubrir">
-      <span class="door-art mesa-kapi" aria-hidden="true">${kapiVivo('saluda')}</span>
       <span class="door-w">${ico('ninos')}Para niñas y niños</span><h2 class="door-t">Descubrir</h2>
-      <p class="door-d">Entrá a los mundos de aprendizaje: el núcleo de la experiencia.</p><span class="btn btn-accion btn-big door-go">Entrar</span></a>
+      <p class="door-d">Entrá a los mundos de aprendizaje: el núcleo de la experiencia.</p>
+      <span class="descubrir-grupo" aria-hidden="true"><img src="arte/descubrir-grupo.webp" alt="" width="1122" height="1402" draggable="false"></span>
+      <span class="btn btn-accion btn-big door-go">Entrar ${ico('flecha')}</span></a>
     <a class="door proyectar" href="#/proyectar"><span class="door-foto" aria-hidden="true" style="background-image:url(arte/aula.webp)"></span>
       <span class="door-w">${ico('docente')}Para docentes</span><h2 class="door-t">Proyectar</h2>
       <p class="door-d">Mediaciones y recursos para enseñar a partir de cada experiencia.</p><span class="btn btn-zona door-go">Entrar ${ico('flecha')}</span></a>

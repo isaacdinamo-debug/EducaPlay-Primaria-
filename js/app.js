@@ -119,7 +119,7 @@ function route(){
   clearTimers(); closeModal();
   const {parts,q}=parseHash(); const [a,b,c,d]=parts;
   let html='', zone='home', after=null;
-  if(!a){ html=vIntro(); }
+  if(!a){ html=vIntro(); after=iniciarBienvenida; }
   else if(a==='inicio'){ html=vInicio(); }
   else if(a==='equipo'){ html=vEquipo(); }
   else if(a==='descubrir'){

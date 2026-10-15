@@ -55,7 +55,7 @@ function gestoCompanero(video, gesto){
 }
 
 /* ---------- Botonera ilustrada ---------- */
-const boton = (n, cls='') => `<img class="bico ${cls}" src="arte/botones/${n}.webp" alt="" draggable="false">`;
+const boton = (n, cls='') => ico(n==='voz'?'parlante':n, `bico ${cls}`);
 /* ---------- Ilustración de cada sección de Proyectar y Acompañar ---------- */
 const seccion = (n, cls='') => `<img class="sec-dib ${cls}" src="arte/secciones/${n}.webp" alt="" draggable="false">`;
 
@@ -76,7 +76,7 @@ const I = {
   mapa:`<path ${S} d="M8 16l16-6 16 6 16-6v38l-16 6-16-6-16 6zM24 10v38M40 16v38"/>`,
   parlante:`<path fill="currentColor" d="M10 24h10l14-12v40L20 40H10z"/><path ${S} d="M42 22q8 10 0 20M48 14q12 18 0 36"/>`,
   parlanteOff:`<path fill="currentColor" d="M10 24h10l14-12v40L20 40H10z"/><path ${S} d="M42 24l14 16M56 24 42 40"/>`,
-  cuaderno:`<rect x="12" y="8" width="42" height="48" rx="6" fill="currentColor"/><path d="M22 8v48" stroke="#fffaf0" stroke-width="4"/><path d="M30 22h16M30 32h16" stroke="#fffaf0" stroke-width="4" stroke-linecap="round"/>`,
+  cuaderno:`<rect ${S} x="12" y="8" width="42" height="48" rx="6"/><path ${S} d="M22 8v48M31 23h14M31 34h14M8 20h8M8 44h8"/>`,
   casa:`<path ${S} d="M10 30 32 12l22 18M16 26v26h32V26M27 52V38h10v14"/>`,
   buscar:`<circle ${S} cx="27" cy="27" r="16"/><path ${S} d="M39 39l15 15"/>`,
   reloj:`<circle ${S} cx="32" cy="32" r="22"/><path ${S} d="M32 18v14l10 7"/>`,

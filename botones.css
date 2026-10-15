@@ -1,0 +1,152 @@
+/* Madera del estero: contorno castaño, vetas suaves, canto de madera
+   y pequeños brotes. Familia elegida en prueba-botones.html. */
+:root{
+  --ficha-marco:#513322;
+  --ficha-base:#986139;
+  --ficha-sombra:#49332330;
+}
+
+#app :where(.btn,.intro-go,.kb-btn,.btn-oir,.pop-x,.sheet .x,.ans,.marker,button.pcard,.comp){
+  --ficha-color:#dfbb85;
+  --ficha-borde:#b88851;
+  --ficha-tinta:var(--tinta);
+  --ficha-alto:5px;
+  position:relative;
+  border:3px solid var(--ficha-marco);
+  border-radius:14px 19px 15px 20px;
+  background:repeating-linear-gradient(176deg,transparent 0 13px,#24361c0b 14px 15px,transparent 16px 25px),
+    linear-gradient(180deg,color-mix(in srgb,var(--ficha-color),white 22%),var(--ficha-color));
+  color:var(--ficha-tinta);
+  box-shadow:inset 0 3px 0 #ffffff45,inset 0 0 0 2px var(--ficha-borde),inset 0 -3px 0 #24361c26,
+    0 var(--ficha-alto) 0 var(--ficha-base),0 calc(var(--ficha-alto) + 3px) 0 var(--ficha-marco),
+    0 calc(var(--ficha-alto) + 6px) 8px -3px var(--ficha-sombra);
+  margin-bottom:calc(var(--ficha-alto) + 3px);
+  transition:transform 180ms var(--empuje),box-shadow 140ms,filter 140ms;
+  -webkit-tap-highlight-color:transparent;
+}
+
+#app .btn{font-family:var(--fuente-titulo);font-size:1.12rem;line-height:1.2;padding:.55em 1.2em}
+
+#app :is(.btn-accion,.btn-sun,.btn-play){--ficha-color:#617944;--ficha-borde:var(--accion-canto);--ficha-tinta:var(--papel)}
+
+#app :is(.btn-zona,.btn-primary){--ficha-color:var(--zona);--ficha-borde:var(--zona-canto);--ficha-tinta:var(--papel)}
+
+#app .btn-big{--ficha-alto:7px;min-height:68px;border-width:3px;border-radius:16px 21px 17px 22px;font-size:clamp(1.25rem,2.6vw,1.55rem);letter-spacing:.01em;text-transform:none}
+
+#app .btn-sm{font-size:1rem;min-height:46px;border-width:3px;border-radius:17px}
+
+#app:is([data-zone="proyectar"],[data-zone="acompanar"]) .btn{--ficha-alto:3px;border-width:3px;border-radius:17px}
+
+#app .intro-go{--ficha-color:#617944;--ficha-borde:var(--oliva-canto);--ficha-tinta:var(--papel);--ficha-alto:7px;
+  min-height:96px;gap:18px;padding:10px 25px 10px 12px;border-width:3px;
+  border-radius:18px 24px 19px 25px;font-size:clamp(1.6rem,2.6vw,2rem);letter-spacing:.01em;filter:none}
+
+#app .intro-go-ico{flex:0 0 58px;width:58px;height:58px;border:0;border-radius:14px 19px 15px 20px;
+  background:var(--papel);box-shadow:inset 0 2px 1px #fff,0 3px 0 #c88a1d,0 5px 6px #8a5a3433}
+
+#app .intro-go-ico svg{fill:var(--oliva);stroke:var(--oliva-canto);filter:drop-shadow(0 2px 0 #fff)}
+
+#app .intro-go-arrow{width:24px;height:24px;margin-left:0}
+
+#app .kb-btn{--ficha-color:#617944;--ficha-borde:var(--oliva-canto);--ficha-tinta:var(--papel);
+  min-height:68px;min-width:68px;border-width:3px;border-radius:14px 19px 15px 20px;padding:0 16px;gap:10px}
+
+#app .kb-btn .bico{width:32px;height:32px;filter:drop-shadow(0 2px 0 var(--ficha-borde)) drop-shadow(0 -1px 0 #ffffff60)}
+
+#app .kb-btn.kb-yo{--ficha-color:var(--lapacho-suave);--ficha-borde:var(--lapacho-canto);padding:0 3px}
+
+#app .kb-btn.kb-voz{--ficha-color:#dfbb85;--ficha-borde:#b88851;--ficha-tinta:var(--tinta-suave)}
+
+#app .kb-btn.kb-voz.on{--ficha-color:var(--estero-oscuro);--ficha-borde:var(--estero-canto);--ficha-tinta:var(--papel)}
+
+#app .kb-voz:not(.on) .bico{opacity:1;filter:drop-shadow(0 1px 0 #fff)}
+
+#app .kb-voz.on .bico{animation:none}
+
+#app .kbar .badge{position:absolute;right:-8px;top:-9px;min-width:28px;height:28px;padding:0 5px;
+  display:grid;place-items:center;border:3px solid var(--papel);background:var(--lapacho);color:var(--tinta);
+  box-shadow:0 3px 0 var(--lapacho-canto);font:800 .95rem/1 var(--fuente-titulo)}
+
+#app .btn-oir{--ficha-color:#dfbb85;--ficha-borde:#b88851;--ficha-tinta:#513322;
+  width:68px;height:68px;min-width:68px;border-width:3px;border-radius:16px 21px 17px 22px;font-size:1.6rem}
+
+#app :is(.pop-x,.sheet .x){--ficha-color:var(--barro);--ficha-borde:var(--barro-canto);--ficha-tinta:var(--papel);
+  position:absolute;width:64px;height:64px;border-width:3px;border-radius:24px}
+
+#app :is(.pop-x,.sheet .x) .bico{width:30px;height:30px;filter:drop-shadow(0 2px 0 var(--barro-canto))}
+
+#app .ans{min-height:68px;border-width:3px;border-radius:14px 19px 15px 20px;--ficha-alto:6px}
+
+#app .ans.good{--ficha-color:var(--oliva-suave);--ficha-borde:var(--oliva)}
+
+#app .ans.bad{--ficha-color:#f6dcd6;--ficha-borde:#b8473a}
+
+/* Elecciones de personaje, herramientas y tarjetas que se pueden tocar. */
+#app .comp{--ficha-color:var(--blanco);--ficha-borde:#b88851;--ficha-alto:6px;
+  min-width:0;border-width:3px;border-radius:18px 24px 19px 25px;padding:16px 10px 14px}
+#app .comp .comp-vivo{max-width:100%}
+#app .comp.elegida{--ficha-color:var(--estero-suave);--ficha-borde:var(--estero-oscuro)}
+#app .marker{display:inline-flex;align-items:center;gap:.5em;min-height:64px;
+  padding:.4em .85em;border-width:3px;border-radius:23px;font-size:1.1rem}
+#app .marker[aria-pressed="true"]{--ficha-color:var(--estero-suave);--ficha-borde:var(--estero-oscuro);
+  outline:3px solid var(--estero-oscuro);outline-offset:2px}
+#app button.pcard{--ficha-color:var(--blanco);--ficha-alto:6px;border-width:3px;border-radius:16px 21px 17px 22px}
+#app button.pcard.sel{--ficha-color:var(--estero-suave);--ficha-borde:var(--estero-oscuro);
+  outline:3px solid var(--estero-oscuro);outline-offset:3px}
+#app button.pcard.matched{--ficha-color:var(--oliva-suave);--ficha-borde:var(--oliva)}
+#app button.pcard.bad{--ficha-color:#f6dcd6;--ficha-borde:#b8473a}
+#app button.pcard.matched:disabled{opacity:1;filter:none}
+/* Las tarjetas también llevan una señal legible sin depender del color. */
+#app :is(button.pcard.matched,.ans.good)::after{content:"✓";position:absolute;right:-7px;top:-10px;
+  display:grid;place-items:center;width:28px;height:28px;border:3px solid var(--papel);
+  border-radius:50%;background:var(--oliva);color:var(--papel);font:800 18px/1 var(--fuente-titulo);
+  box-shadow:0 2px 0 var(--oliva-canto);pointer-events:none}
+
+@media (hover:hover){
+#app :is(.btn,.intro-go,.kb-btn,.btn-oir,.pop-x,.sheet .x,.ans,.marker,button.pcard,.comp):not(:disabled):not([aria-disabled="true"]):hover{transform:translateY(-3px);filter:brightness(1.04)}
+
+#app .intro-go:hover .intro-go-ico{transform:rotate(-6deg)}
+
+#app .intro-go:hover .intro-go-arrow{transform:translateX(4px)}
+
+}
+#app :is(.btn,.intro-go,.kb-btn,.btn-oir,.pop-x,.sheet .x,.ans,.marker,button.pcard,.comp):not(:disabled):not([aria-disabled="true"]):active{
+  transform:translateY(var(--ficha-alto));filter:brightness(.98);
+  box-shadow:inset 0 2px 4px #00000018,inset 0 0 0 2px var(--ficha-borde),0 1px 0 var(--ficha-base),0 3px 0 var(--ficha-marco);
+}
+
+#app :is(.btn,.intro-go,.kb-btn,.btn-oir,.pop-x,.sheet .x,.ans,.marker,button.pcard,.comp):focus-visible{outline:3px solid var(--tinta);outline-offset:5px}
+
+#app :is(.btn,.intro-go,.kb-btn,.btn-oir,.pop-x,.sheet .x,.ans,.marker,button.pcard,.comp):is(:disabled,[aria-disabled="true"]){
+  opacity:.58;filter:grayscale(.5);cursor:not-allowed;transform:none;animation:none;
+}
+
+#app #next:not([hidden]){animation:asoma var(--t-festejo) var(--empuje) backwards}
+
+@media (max-width:560px){
+#app .intro-go{min-height:88px;padding:8px 18px 8px 10px;gap:12px;border-radius:18px 24px 19px 25px}
+
+#app .kb-btn{padding:0 10px}
+
+#app .kb-yo>.comp-vivo{display:block}
+
+#app .comp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+}
+@media (prefers-reduced-motion:reduce){
+#app :is(.btn,.intro-go,.kb-btn,.btn-oir,.pop-x,.sheet .x,.ans,.marker,button.pcard,.comp),
+#app .intro-go-ico,
+#app .intro-go-arrow{animation:none!important;transition:none!important}
+
+#app :is(.btn,.intro-go,.kb-btn,.btn-oir,.pop-x,.sheet .x,.ans,.marker,button.pcard,.comp):hover,
+#app .intro-go:hover .intro-go-ico,
+#app .intro-go:hover .intro-go-arrow{transform:none}
+
+}
+
+/* Brotes discretos en navegación y acciones principales. */
+#app :is(.btn-accion,.intro-go,.kbar a.kb-btn)::after{
+  content:"";position:absolute;right:-8px;top:-7px;width:23px;height:12px;
+  background:#a0b46a;border:2px solid #513322;border-radius:2px 100% 2px 100%;
+  transform:rotate(-30deg);box-shadow:-12px -5px 0 -2px #6a8748;pointer-events:none;
+}

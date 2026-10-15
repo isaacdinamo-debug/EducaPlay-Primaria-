@@ -1,0 +1,77 @@
+/* Dos ilustraciones completas: la orilla forma parte del paisaje.
+   La bienvenida conserva la familia Madera del estero de botones.css. */
+.intro.intro-ibera{height:100svh;min-height:660px;background:#fcf4e1;isolation:isolate}
+.bienvenida-paisaje{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.bienvenida-paisaje img{display:block;width:100%;height:100%;object-fit:cover;object-position:center center}
+.intro-ibera .intro-inst{position:absolute;inset:0 0 auto;z-index:4;justify-content:center;padding:14px 20px;gap:8px 18px}
+.intro-ibera .pie-logo{font-size:10px;letter-spacing:.055em;border:0;padding:0;color:#72513b}
+.intro-ibera .intro-c{display:block;flex:1;margin:0;padding:0;min-height:0;width:100%}
+.bienvenida-cabecera{position:absolute;top:7.5%;left:50%;transform:translateX(-50%);width:42%;max-width:560px;display:flex;flex-direction:column;align-items:center;z-index:3}
+.intro-ibera .intro-marca{display:flex;flex-direction:column;align-items:center;width:100%;margin:0}
+.intro-ibera .intro-wm{width:100%;height:auto;max-width:none;animation:none}
+.intro-ibera .intro-prim{width:50%;margin-top:14px}
+.intro-ibera .intro-primaria{width:100%;height:auto;rotate:-5deg;animation:none}
+.bienvenida-entrada{display:flex;justify-content:center;margin-top:20px}
+#app .intro-ibera .intro-go{min-height:64px;gap:12px;padding:7px 20px 7px 9px;font-size:26px;animation:none}
+#app .intro-ibera .intro-go-ico{flex-basis:42px;width:42px;height:42px;border-radius:13px}
+#app .intro-ibera .intro-go-ico svg{width:21px;height:24px}
+.bienvenida-amigos{position:absolute;inset:0;pointer-events:none}
+.bienvenida-amigo{position:absolute;left:var(--x);bottom:5%;width:var(--w,13%);height:var(--h,31%);margin:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.bienvenida-figura{height:calc(100% - 30px);width:100%;display:flex;align-items:flex-end;justify-content:center}
+.bienvenida-figura :is(video,img){display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;animation:none}
+.bienvenida-amigo figcaption{height:30px;display:grid;place-items:center;font:800 clamp(15px,1.45vw,24px)/1.1 var(--fuente-titulo);white-space:nowrap;color:#4e2b15}
+.amigo-arandu{--x:10%;--w:13%;--h:30%}
+.amigo-tortuga{--x:23%;--w:12%;--h:26%}
+.amigo-garza{--x:36%;--w:12%;--h:33%}
+.amigo-kapi{--x:50%;--w:17%;--h:38%}
+.amigo-yarara{--x:64%;--w:13%;--h:26%}
+.amigo-caraya{--x:77%;--w:14%;--h:32%}
+.amigo-yabiru{--x:90%;--w:12%;--h:34%}
+.amigo-guacamayo{--x:23%;--w:19%;--h:27%;bottom:43%}
+.amigo-guacamayo .bienvenida-figura{animation:tataendy-planea 9s ease-in-out infinite;transform-origin:50% 50%}
+.amigo-guacamayo figcaption{font-size:clamp(14px,1.2vw,19px);height:26px;background:#fff7e7c9;border-radius:99px;padding:2px 12px}
+@keyframes tataendy-planea{0%,100%{transform:translate(-7px,5px) rotate(-3deg)}25%{transform:translate(6px,-9px) rotate(1deg)}50%{transform:translate(16px,-2px) rotate(3deg)}75%{transform:translate(2px,8px) rotate(-1deg)}}
+/* En pantallas anchas y bajas la marca deja más cielo a Tataendy. */
+@media(min-aspect-ratio:2/1){
+ .bienvenida-cabecera{top:6%;width:34%;max-width:480px}
+ .intro-ibera .intro-prim{width:46%;margin-top:10px}
+ .bienvenida-entrada{margin-top:14px}
+ .amigo-guacamayo{--x:24%;--w:17%;--h:28%;bottom:40%}
+}
+/* Teléfonos y tablets verticales: otro encuadre y dos filas sobre tierra. */
+@media(max-aspect-ratio:4/5){
+ .intro.intro-ibera{height:100svh;min-height:800px}
+ .bienvenida-paisaje img{object-fit:cover;object-position:center 35%}
+ .intro-ibera .intro-inst{gap:4px;flex-direction:column;align-items:center;padding-top:10px}
+ .intro-ibera .pie-logo{font-size:8px}
+ .bienvenida-cabecera{top:8%;width:78%;max-width:440px}
+ .intro-ibera .intro-prim{width:53%;margin-top:12px}
+ .bienvenida-entrada{margin-top:18px}
+ #app .intro-ibera .intro-go{min-height:58px;font-size:23px;padding:6px 17px 6px 8px;gap:10px}
+ #app .intro-ibera .intro-go-ico{width:38px;height:38px;flex-basis:38px}
+ .bienvenida-amigo{width:24%;height:20%;bottom:24%}
+ .bienvenida-amigo figcaption{font-size:clamp(12px,2.9vw,20px);height:26px}
+ .bienvenida-figura{height:calc(100% - 26px)}
+ .amigo-arandu{left:13%;height:20%}
+ .amigo-tortuga{left:37%;height:18%}
+ .amigo-caraya{left:63%;height:21%}
+ .amigo-yabiru{left:87%;height:22%}
+ .amigo-yarara{left:18%;bottom:3%;height:18%;width:28%}
+ .amigo-kapi{left:50%;bottom:3%;height:23%;width:32%}
+ .amigo-garza{left:82%;bottom:3%;height:23%;width:27%}
+ .amigo-guacamayo{left:23%;bottom:49%;height:16%;width:36%}
+ .amigo-guacamayo figcaption{font-size:12px;height:22px;padding:2px 9px}
+}
+@media(max-aspect-ratio:4/5) and (min-width:600px){
+ .intro.intro-ibera{min-height:1000px}
+ .bienvenida-cabecera{top:7%;max-width:490px}
+ .amigo-guacamayo{left:18%;height:18%;width:27%;bottom:47%}
+}
+@media(max-height:560px) and (min-aspect-ratio:4/5){
+ .intro.intro-ibera{min-height:560px}
+ .bienvenida-cabecera{max-width:370px;top:8%}
+ .intro-ibera .intro-prim{width:42%;margin-top:8px}
+ .bienvenida-entrada{margin-top:12px}
+ #app .intro-ibera .intro-go{min-height:54px;font-size:22px}
+}
+@media(prefers-reduced-motion:reduce){.amigo-guacamayo .bienvenida-figura{animation:none}}

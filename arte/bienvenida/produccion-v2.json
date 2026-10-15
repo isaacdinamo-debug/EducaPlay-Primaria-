@@ -1,0 +1,43 @@
+{
+  "tool": "image_gen (built-in)",
+  "purpose": "Rediseño de la bienvenida de EducaPlay Primaria para horizontal, vertical y panorámico.",
+  "assets": [
+    {
+      "source": "estero-horizontal-v2.png",
+      "web": "estero-horizontal-v2.webp",
+      "prompt": "Use case: illustration-story. Create ONE polished wide 16:9 landscape BACKGROUND asset for EducaPlay Primaria’s interactive welcome screen. References define the existing children’s cartoon illustration style and Iberá wetlands world. Warm ivory sky, dark warm brown ink outlines, flat friendly colors. Top 45% mostly open pale cream sky; empty center top for HTML logo and button. Shoreline/horizon around 48%. Continuous turquoise lagoon at 48%-74%, lilies, camalotes, reeds and distant grasses. Natural sandy grassy foreground only bottom 25%, across the full width for seven separately composited animals. Little thatched house and yatay palm far left; flowering pink lapacho far right. No animals, text, logos, buttons, interface or pasted sand band."
+    },
+    {
+      "source": "estero-vertical-v3.png",
+      "web": "estero-vertical-v3.webp",
+      "prompt": "Use case: precise-object-edit. Revise this portrait 9:16 Iberá background illustration for the mobile welcome layout. Keep the same polished children’s cartoon style, linework, colors, thatched little house, yatay palm, pink lapacho, reeds, lilies, and natural perspective. Bring the near foreground shore higher. Continuous dry sandy grassy clearing begins across full width at 55% canvas height, lower 45% needed for two rows of characters. Natural gently sloping bank integrated into scene, not a pasted band. Lagoon clearly readable between 38%-56%, lily leaves and reeds at sides. Top 30% almost blank cream sky for HTML logo; small circular sun right at 32%, away from central logo. No animals, people, text, labels, logos, buttons, overlays or interface."
+    },
+    {
+      "source": "estero-panoramico-v2.png",
+      "web": "estero-panoramico-v2.webp",
+      "prompt": "Use case: illustration-story. Create an ULTRAWIDE 21:9 panoramic version of the reference Iberá children’s cartoon background for a widescreen website. Preserve warm cream sky, dark brown outlines, turquoise lagoon, grassy banks, reeds, camalotes, lilies, sandy grassy foreground, thatched house and yatay palm left, pink lapacho right. Recompose rather than stretch; palm, house, tree and entire round sun safely inside 7% margins. Top 45% calm cream sky; sun upper right at y=20%. Horizon 48%, lagoon 48%-76%; organic foreground bank bottom 24% open for seven characters. No animals, text, logos, interface or buttons."
+    },
+    {
+      "source": "tataendy-vuelo-v2.png",
+      "web": "tataendy-vuelo-v2.webp",
+      "transparent": true,
+      "prompt": "Use case: identity-preserve. ONE transparent-background full-body cutout of Tataendy, the cute red guacamayo from references, IN FLIGHT with BOTH WINGS FULLY SPREAD. Preserve big white face patches, bright dark eyes, cream upper beak and dark lower beak, red head/body, yellow and blue wing feathers, warm dark-brown outlines. Friendly children’s cartoon, slight three-quarter view, wings extending diagonally upward, long red/blue tail trailing below, feet tucked. Physically airborne, cheerfully gliding. Entire bird inside canvas. TRUE transparency, no ground, grass, sand oval, perch, branch, ground shadow, text, scenery, buttons or other characters."
+    }
+  ],
+  "reference_files": [
+    "../EDUCA-PRIMARIA-NUEVO-FONDO-DISEÑO.png",
+    "arte/esteros.webp",
+    "arte/bienvenida/guacamayo.webp"
+  ],
+  "loop_processing": {
+    "script": "herramientas/cerrar_loops_bienvenida.py",
+    "output": "arte/bienvenida/loops-v3/",
+    "method": "Forward sequence followed by reversed sequence, including matching turning frames; VP9 alpha, CRF 18. Individual start offsets avoid synchronized gestures. Original assets preserved.",
+    "verification": "arte/bienvenida/loops-v3/verificacion.json"
+  },
+  "responsive": {
+    "portrait": "max-aspect-ratio: 4/5",
+    "panorama": "min-aspect-ratio: 21/10",
+    "landscape": "otherwise"
+  }
+}
