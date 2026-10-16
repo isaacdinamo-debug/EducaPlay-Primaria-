@@ -271,7 +271,7 @@ main:focus{outline:none}
 .kb-yo{padding:0}
 .kb-yo .glifo{width:48px;height:48px}
 .kb-yo .comp-vivo{height:54px;border-radius:12px}
-.buddy .comp-vivo{height:clamp(150px,30vh,230px);animation:none}
+.buddy .comp-vivo{height:clamp(230px,42vh,340px);animation:none}
 .buddy{left:clamp(8px,2vw,30px)}
 .sheet h2 .comp-vivo{height:76px;border-radius:14px}
 .finish-yo .comp-vivo{height:clamp(130px,26vh,230px);animation:asoma var(--t-festejo) var(--empuje) backwards}
@@ -305,6 +305,7 @@ main:focus{outline:none}
 .gfoto{position:absolute;inset:0;background:var(--mapa) 70% 40%/cover;-webkit-mask-image:linear-gradient(90deg,transparent 22%,#000 62%);mask-image:linear-gradient(90deg,transparent 22%,#000 62%)}
 .gcard>:not(.gfoto):not(.gart){position:relative}
 .gart{position:absolute;right:5%;bottom:10px;width:min(34%,170px)}
+.gcard.g1 .gart .kapi-pose{scale:-1 1}
 .gir{margin-top:auto}
 .pronto-fila{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px;color:var(--tinta-suave)}
 .pronto-t{display:inline-flex;align-items:center;gap:.4em;font-weight:800}
@@ -791,6 +792,7 @@ a.chip.verbo:hover{transform:translateY(-2px) rotate(-1.5deg)}
   .treewrap{max-width:170px}
   .duo,.answers,.cuad,.act,.finish{padding-left:14px;padding-right:14px}
   .buddy{width:68px;height:68px;left:4px}
+  .buddy .comp-vivo{height:clamp(180px,30vh,260px)}
   .stage{min-height:0}
 }
 /* En vertical o en pantallas angostas el mapa ilustrado no da el tamaño

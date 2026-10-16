@@ -35,7 +35,7 @@ function vIntro(){
     if(id==='guacamayo') return `<img class="tataendy-vuelo" src="arte/bienvenida/tataendy-vuelo-v2.webp" alt="" width="1536" height="1024" draggable="false">`;
     const poster = `arte/bienvenida/${id}.webp`;
     if(SIN_MOVIMIENTO || !VIDEO_SIN_FONDO) return `<img src="${poster}" alt="" draggable="false">`;
-    return `<video src="arte/bienvenida/loops-v3/${id}.webm" poster="${poster}" data-loop-offset="${(i*.83).toFixed(2)}" autoplay loop muted playsinline aria-hidden="true"></video>`;
+    return `<video src="arte/bienvenida/loops-v4/${id}.webm" poster="${poster}" data-loop-offset="${(i*.83).toFixed(2)}" autoplay loop muted playsinline aria-hidden="true"></video>`;
   };
   return `<section class="intro intro-ibera">${SALTO}
    <picture class="bienvenida-paisaje" aria-hidden="true"><source media="(min-aspect-ratio: 21/10)" srcset="arte/bienvenida/estero-panoramico-v2.webp"><source media="(max-aspect-ratio: 4/5)" srcset="arte/bienvenida/estero-vertical-v3.webp"><img src="arte/bienvenida/estero-horizontal-v2.webp" alt="" fetchpriority="high" width="1672" height="941"></picture>

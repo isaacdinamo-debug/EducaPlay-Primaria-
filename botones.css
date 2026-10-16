@@ -150,3 +150,11 @@
   background:#a0b46a;border:2px solid #513322;border-radius:2px 100% 2px 100%;
   transform:rotate(-30deg);box-shadow:-12px -5px 0 -2px #6a8748;pointer-events:none;
 }
+
+/* Entradas de docentes y familias: el botón ocupa su propia fila. */
+#app .door:is(.proyectar,.acompanar) .door-d{padding-right:0}
+#app .door:is(.proyectar,.acompanar) .door-go{
+  position:relative;right:auto;bottom:auto;align-self:flex-end;
+  margin:8px 0 8px;padding:.4em .85em;min-height:40px;
+  font-size:.95rem;--ficha-alto:3px;
+}

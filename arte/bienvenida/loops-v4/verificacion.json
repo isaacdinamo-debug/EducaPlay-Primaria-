@@ -1,0 +1,114 @@
+[
+  {
+    "name": "arandu",
+    "clean_source_seconds": [
+      0.55,
+      4.4
+    ],
+    "frames": 300,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "seam_mae": 0.0,
+    "turn_mae": 0.0,
+    "typical_step_mae": 0.7715,
+    "p95_step_mae": 3.4233
+  },
+  {
+    "name": "tortuga",
+    "clean_source_seconds": [
+      0.55,
+      4.4
+    ],
+    "frames": 300,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "seam_mae": 0.0,
+    "turn_mae": 0.0,
+    "typical_step_mae": 0.3703,
+    "p95_step_mae": 2.9012
+  },
+  {
+    "name": "garza",
+    "clean_source_seconds": [
+      0.55,
+      4.4
+    ],
+    "frames": 300,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "seam_mae": 0.0,
+    "turn_mae": 0.0,
+    "typical_step_mae": 0.6438,
+    "p95_step_mae": 5.6423
+  },
+  {
+    "name": "kapi",
+    "clean_source_seconds": [
+      0.55,
+      4.4
+    ],
+    "frames": 300,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "seam_mae": 0.0,
+    "turn_mae": 0.0,
+    "typical_step_mae": 2.1563,
+    "p95_step_mae": 4.5624
+  },
+  {
+    "name": "yarara",
+    "clean_source_seconds": [
+      0.55,
+      4.4
+    ],
+    "frames": 300,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "seam_mae": 0.0,
+    "turn_mae": 0.0,
+    "typical_step_mae": 0.596,
+    "p95_step_mae": 3.6943
+  },
+  {
+    "name": "caraya",
+    "clean_source_seconds": [
+      0.55,
+      4.4
+    ],
+    "frames": 300,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "seam_mae": 0.0,
+    "turn_mae": 0.0,
+    "typical_step_mae": 0.786,
+    "p95_step_mae": 2.4646
+  },
+  {
+    "name": "yabiru",
+    "clean_source_seconds": [
+      0.55,
+      4.4
+    ],
+    "frames": 300,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "seam_mae": 0.0,
+    "turn_mae": 0.0,
+    "typical_step_mae": 0.3335,
+    "p95_step_mae": 3.4202
+  }
+]

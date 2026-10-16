@@ -31,9 +31,10 @@
   ],
   "loop_processing": {
     "script": "herramientas/cerrar_loops_bienvenida.py",
-    "output": "arte/bienvenida/loops-v3/",
-    "method": "Forward sequence followed by reversed sequence, including matching turning frames; VP9 alpha, CRF 18. Individual start offsets avoid synchronized gestures. Original assets preserved.",
-    "verification": "arte/bienvenida/loops-v3/verificacion.json"
+    "output": "arte/bienvenida/loops-v4/",
+    "method": "Clean source interval 0.55–4.40s; cosine forward/reverse time mapping over 10s at 30fps, zero speed at turns, adjacent-frame premultiplied-alpha interpolation. No end-to-start dissolve. VP9 lossless with alpha; original sources preserved.",
+    "verification": "arte/bienvenida/loops-v4/verificacion.json",
+    "limitation": "Uses reversible gestures from existing footage; not newly generated cyclic character animation."
   },
   "responsive": {
     "portrait": "max-aspect-ratio: 4/5",
