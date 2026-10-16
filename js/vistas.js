@@ -39,7 +39,7 @@ function vIntro(){
   };
   return `<section class="intro intro-ibera">${SALTO}
    <picture class="bienvenida-paisaje" aria-hidden="true"><source media="(min-aspect-ratio: 21/10)" srcset="arte/bienvenida/estero-panoramico-v2.webp"><source media="(max-aspect-ratio: 4/5)" srcset="arte/bienvenida/estero-vertical-v3.webp"><img src="arte/bienvenida/estero-horizontal-v2.webp" alt="" fetchpriority="high" width="1672" height="941"></picture>
-   <header class="intro-inst"><span class="pie-logo">Gobierno de la Provincia de Corrientes</span><span class="pie-logo">Ministerio de Educación</span></header>
+   <header class="intro-inst">${controlesVoz()}<span class="pie-logo">Gobierno de la Provincia de Corrientes</span><span class="pie-logo">Ministerio de Educación</span></header>
    <main class="intro-c" id="main" tabindex="-1">
      <div class="bienvenida-cabecera">
        <h1 class="intro-marca">
@@ -48,6 +48,7 @@ function vIntro(){
        </h1>
        <p class="sr">Un lugar para explorar, aprender y descubrir junto a los animales del Iberá.</p>
        <div class="bienvenida-entrada"><a class="intro-go" href="#/inicio"><span class="intro-go-ico" aria-hidden="true"><svg viewBox="0 0 28 32"><path d="M5 3Q3 2 3 5v22q0 3 3 1l19-11q2-1 0-3Z"/></svg></span><span>Comenzar</span><svg class="intro-go-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a></div>
+       <p class="bienvenida-voz" id="voz-texto"></p>
      </div>
      <div class="bienvenida-amigos" role="group" aria-label="Conocé a los compañeros del Iberá">
        ${amigos.map(([id,nombre],i)=>`<figure class="bienvenida-amigo amigo-${id}"><div class="bienvenida-figura" aria-hidden="true">${figura(id,i)}</div><figcaption>${nombre}</figcaption></figure>`).join('')}
@@ -72,7 +73,7 @@ function iniciarBienvenida(){
 function vInicio(){
   return `<div class="inicio">${SALTO}<main class="home" id="main" tabindex="-1">
    <a class="home-marca" href="#/" aria-label="Educaplay Primaria, volver a la bienvenida">${marca()}</a>
-   <h1>¿Cómo querés entrar hoy?</h1>
+   ${panelVoz()}<h1>¿Cómo querés entrar hoy?</h1>
    <p class="lead">Un mismo territorio, tres maneras de recorrerlo. Cada espacio tiene su propia mirada, pero los tres están conectados.</p>
    <div class="doors">
     <a class="door descubrir" href="#/descubrir">
@@ -109,14 +110,17 @@ function kbar(title, back, backLabel){
   return `<header class="kbar"><a class="kb-btn" href="${back}">${boton('volver')}<span>${backLabel}</span></a>
    <div class="grow kb-title">${title}</div>
    ${state.me?`<button class="kb-btn kb-yo" data-act="cambiarme" aria-label="Cambiar mi dibujo">${companeroVivo(state.me,'reposo')}</button>`:''}
-   ${botonVoz()}
+   ${controlesVoz()}
    <button class="kb-btn" data-act="cuaderno" aria-label="Mi cuaderno de campo: ${n} ${n===1?'hallazgo':'hallazgos'}">${boton('cuaderno')}<span>Cuaderno</span><span class="badge ${state.nuevoHallazgo?'salta':''}">${n}</span></button></header>`;
 }
-const botonVoz = () => `<button class="kb-btn kb-voz ${state.voz?'on':''}" data-act="voz" aria-pressed="${state.voz}" aria-label="Voz que lee en voz alta">${boton('voz')}<span>Voz</span></button>`;
+const botonVoz = () => `<button class="kb-btn kb-voz ${state.voz?'on':''}" data-act="voz" aria-pressed="${state.voz}" aria-label="${state.voz?'Silenciar voz':'Activar voz'}">${boton('voz')}<span>Voz</span></button>`;
+
+const controlesVoz = () => `<div class="voz-controles" role="group" aria-label="Controles de voz">${botonVoz()}<button class="voz-accion" data-act="repetirVoz">Repetir voz</button><button class="voz-accion" data-act="detenerVoz">Detener voz</button></div>`;
+const panelVoz = () => `<section class="guia-voz" aria-label="Guía por voz">${controlesVoz()}<p id="voz-texto"></p></section>`;
 
 /* ---------- Elegir dibujo: sin cuentas y sin escribir ---------- */
 function vElegir(){
-  return `${kbar('Descubrir','#/inicio','Inicio')}<main class="pick elegir" id="main" tabindex="-1">
+  return `${kbar('Descubrir','#/inicio','Inicio')}<main class="pick elegir" id="main" tabindex="-1"><p class="guia-texto" id="voz-texto"></p>
    <div class="titulo-oir"><h1>¿Quién sos hoy?</h1><button class="btn-oir" data-act="say" data-text="¿Quién sos hoy? Tocá un dibujo para tu cuaderno de campo." aria-label="Escuchar">${ico('parlante')}</button></div>
    <p class="sub">Tocá un dibujo para tu cuaderno de campo.</p>
    <div class="comp-grid">${COMPANEROS.map(([k,n,q])=>`<button class="comp" data-act="elegirme" data-me="${k}" aria-label="${n}, ${q}">${companeroVivo(k,'reposo')}<span>${n}</span><small>${q}</small></button>`).join('')}</div></main>`;
@@ -132,7 +136,7 @@ function vExplorar(){
     return `<a class="gcard g${g}" href="#/descubrir/${g}" style="--mapa:url(arte/mapa-${w.id}.webp)"><span class="gfoto" aria-hidden="true"></span><span class="gart" aria-hidden="true">${art}</span><span class="gnum">${ordinal(g)}</span><span class="gname">${w.name}</span><span class="gsub">${w.place}</span><span class="btn btn-accion btn-big gir">Entrar</span></a>`;
   };
   return `${kbar('Descubrir','#/inicio','Inicio')}<main class="pick" id="main" tabindex="-1">
-   <div class="titulo-oir"><h1>Elegí tu mundo</h1><button class="btn-oir" data-act="say" data-text="Elegí tu mundo. Cada grado tiene su propio universo, su mapa y sus personajes." aria-label="Escuchar">${ico('parlante')}</button></div>
+   <p class="guia-texto" id="voz-texto"></p><div class="titulo-oir"><h1>Elegí tu mundo</h1><button class="btn-oir" data-act="say" data-text="Elegí tu mundo. Cada grado tiene su propio universo, su mapa y sus personajes." aria-label="Escuchar">${ico('parlante')}</button></div>
    <p class="sub">Cada grado tiene su propio universo, su mapa y sus personajes.</p>
    <div class="gradegrid">${listos.map(card).join('')}</div>
    <div class="pronto-fila" aria-label="Mundos que se están preparando"><span class="pronto-t">${ico('niebla')}Se están preparando</span>${faltan.map(g=>`<span class="pronto">${ordinal(g)}</span>`).join('')}</div></main>`;
@@ -175,8 +179,8 @@ function vWorld(g){
   const playable=w.nodes.filter(n=>n.mod), done=playable.filter(n=>state.done[n.mod]).length;
   const senda = w.nodes.map(n=>{ const st=nodeStatus(w,n); return `<li><button class="paso ${st}" data-node="${n.id}"><span class="paso-ico">${glifo(n.icon)}${st==='hecho'?`<span class="paso-tilde">${ico('tilde')}</span>`:''}</span><span class="paso-txt"><b>${n.zone}</b><small>${ESTADO_TXT[st]}</small></span></button></li>`; }).join('');
   return `${kbar(w.name,'#/descubrir','Mundos')}<main class="mapscreen" id="main" tabindex="-1">
-   <div class="mapwrap"><div class="map" id="map">${mapSVG(w,mapView(w))}<ol class="senda" aria-label="Lugares de ${w.name}">${senda}</ol></div></div>
-   <div class="mapfoot"><button class="btn-oir" data-act="say" data-text="${esc(w.mission)}" aria-label="Escuchar la misión">${ico('parlante')}</button>
+   <p class="guia-texto" id="voz-texto"></p><div class="mapwrap"><div class="map" id="map">${mapSVG(w,mapView(w))}<ol class="senda" aria-label="Lugares de ${w.name}">${senda}</ol></div></div>
+   <div class="mapfoot"><button class="btn-oir" data-act="say" data-personaje="${w.avatar}" data-text="${esc(w.mission)}" aria-label="Escuchar la misión">${ico('parlante')}</button>
     <p class="mission">${w.mission}</p>
     <div class="riel" role="progressbar" aria-label="Aventuras completadas" aria-valuemin="0" aria-valuemax="${playable.length}" aria-valuenow="${done}" aria-valuetext="${done} de ${playable.length}">${playable.map((n,i)=>`<i class="${i<done?'ok':''}">${ico('huella')}</i>`).join('')}</div></div></main>`;
 }
@@ -197,7 +201,7 @@ function openPop(id){
     inner=`<div class="pop-ico">${glifo(n.icon)}</div><h3>${n.title}</h3><p>${n.blurb} Volvé pronto: acá va a haber una nueva aventura.</p><div class="pop-btns"><button class="btn btn-big" data-act="popclose">Entendido</button></div>`;
   } else {
     inner=`${n.guia?`<div class="pop-guia" title="${PERSONAJES_1[n.guia]}">${companeroVivo(n.guia,'reposo')}</div>`:''}<div class="pop-ico">${glifo(m.icon)}</div><h3>${m.title}</h3><p>${m.blurb}</p>
-      <div class="pop-btns"><a class="btn btn-accion btn-big" href="#/descubrir/${m.grade}/modulo/${m.id}">${ico('jugar')}${st==='hecho'?'Jugar otra vez':'Entrar'}</a><button class="btn-oir" data-act="say" data-text="${esc(m.title+'. '+m.blurb)}" aria-label="Escuchar">${ico('parlante')}</button></div>`;
+      <div class="pop-btns"><a class="btn btn-accion btn-big" href="#/descubrir/${m.grade}/modulo/${m.id}">${ico('jugar')}${st==='hecho'?'Jugar otra vez':'Entrar'}</a><button class="btn-oir" data-act="say" data-personaje="${n.guia || w.avatar}" data-text="${esc(m.title+'. '+m.blurb)}" aria-label="Escuchar">${ico('parlante')}</button></div>`;
   }
   const el=document.createElement('div');
   el.className='pop'; el.id='pop'; el.setAttribute('role','dialog'); el.setAttribute('aria-label',n.title||m.title);
@@ -206,9 +210,10 @@ function openPop(id){
   el.innerHTML = `<button class="pop-x" data-act="popclose" aria-label="Cerrar">${boton('cerrar')}</button>${inner}`;
   $('#map').appendChild(el);
   gestoCompanero($('.pop-guia video',el),'saluda');
+  speak(st==='pronto' ? n.title+'. '+n.blurb+' Volvé pronto.' : m.title+'. '+m.blurb+' Tocá Entrar para jugar.',{personaje:n.guia || w.avatar});
   const focusEl=$('a.btn,button.btn',el); if(focusEl) focusEl.focus({preventScroll:true});
 }
-function closePop(){ const p=$('#pop'); if(p) p.remove(); }
+function closePop(){ const p=$('#pop'); if(p){ detenerVoz(); p.remove(); } }
 
 /* ---------- Módulo ----------
    "Mapa" vuelve al mapa: no hay cruz, porque volver no es salir. */
@@ -219,10 +224,10 @@ function vModule(g,id){
   return `<div class="kmod"><header class="kbar"><a class="kb-btn" href="#/descubrir/${g}" aria-label="Volver al mapa">${boton('mapa')}<span>Mapa</span></a>
     <div class="grow kb-title">${glifo(m.icon)}<span>${m.title}</span></div>
     <div class="riel" id="dots" aria-label="Actividades de esta aventura">${m.stations.map(()=>`<i>${ico('huella')}</i>`).join('')}</div>
-    ${botonVoz()}
+    ${controlesVoz()}
     <button class="kb-btn" data-act="share" aria-label="Llevar esta misión a casa">${boton('casa')}<span>Para casa</span></button></header>
    <main class="stage ${m.scene==='rio'?'riverside':''}" id="stage-wrap"><div id="stage"></div><button class="buddy" id="buddy" data-act="ayuda" aria-label="Tocá a tu compañero para escuchar la consigna o pedir una pista">${BUDDY[m.buddy]}<span class="buddy-globo" aria-hidden="true">${ico('chat')}</span></button></main>
-   <footer class="narr"><button class="btn-oir" data-act="speak" aria-label="Escuchar la consigna">${ico('parlante')}</button><p class="narr-t" id="narr-t" aria-live="polite"></p><button class="btn btn-accion btn-big" id="next" hidden></button></footer></div>`;
+   <footer class="narr"><button class="btn-oir" data-act="speak" aria-label="Repetir la consigna">${ico('parlante')}</button><p class="narr-t" id="narr-t" aria-live="polite"></p><button class="btn btn-accion btn-big" id="next" hidden></button></footer></div>`;
 }
 
 /* =========================================================

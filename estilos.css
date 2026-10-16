@@ -876,3 +876,27 @@ a.chip.verbo:hover{transform:translateY(-2px) rotate(-1.5deg)}
   details>*{display:block}
   a{text-decoration:none}
 }
+
+/* La voz acompaña el recorrido; siempre se puede detener o repetir. */
+.voz-controles{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.voz-accion{min-height:44px;padding:6px 10px;border:2px solid var(--marco);border-radius:12px;background:var(--papel);color:var(--tinta);font:800 1rem/1.2 var(--fuente-titulo);cursor:pointer}
+.voz-accion:focus-visible{outline:3px solid var(--estero-oscuro);outline-offset:3px}
+.guia-voz{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:14px 0;padding:12px;border:2px solid var(--linea);border-radius:14px;background:var(--papel)}
+.guia-voz p{flex:1;min-width:200px}
+.guia-texto{font-size:1rem;color:var(--tinta-suave);padding:8px 14px}
+.guia-texto:empty{display:none}
+.kbar:has(.voz-controles){flex-wrap:wrap}
+#app .intro-inst .kb-btn{min-height:44px;min-width:44px;padding:4px 8px}
+#app .intro-inst .kb-btn .bico{width:24px;height:24px}
+.intro-inst .voz-controles{position:absolute;right:18px;top:44px;max-width:190px;justify-content:flex-end}
+@media(max-width:700px){
+ .voz-controles{gap:4px}
+ .voz-accion{font-size:.85rem;padding:5px 7px}
+ .intro-inst .voz-controles{position:static;max-width:none;justify-content:center;width:100%}
+ .intro-ibera .bienvenida-cabecera{top:18%}
+ .kbar .voz-controles{justify-content:flex-end}
+}
+/* El mapa comparte el alto disponible con la orientación y sus controles. */
+@media(min-width:1001px),(min-width:761px) and (orientation:landscape){
+ .mapscreen .map{height:100%;width:auto;max-width:100%}
+}

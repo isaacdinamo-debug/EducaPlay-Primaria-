@@ -1,0 +1,79 @@
+{
+  "kapi": {
+    "voice_name": "Leo",
+    "voice_id": "73a45c18-0c56-4642-a61e-f6b303f8ded1",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "guacamayo": {
+    "voice_name": "Benji",
+    "voice_id": "e6f9b893-51b1-51d3-afe9-9e0482cb7ac1",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "ita": {
+    "voice_name": "Arthur",
+    "voice_id": "30fc8796-ceb6-4a66-b3a7-4a145ef7f346",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "garza": {
+    "voice_name": "Ines",
+    "voice_id": "023ebf5e-1970-40d8-825c-a5ef6a1dd4ff",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "yarara": {
+    "voice_name": "Marisol",
+    "voice_id": "75e72cd5-011b-4130-a474-e8b1ab341f04",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "caraya": {
+    "voice_name": "Archie",
+    "voice_id": "bd072316-f77c-588b-b6e5-e46b9b03d008",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "tortuga": {
+    "voice_name": "Willow",
+    "voice_id": "f878bf3f-115b-5842-8934-c789c7947733",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "yabiru": {
+    "voice_name": "Elena",
+    "voice_id": "ca83ca7f-c186-493d-bd69-0d765fa861b2",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "arandu": {
+    "voice_name": "Bram",
+    "voice_id": "549ff70a-3ee7-4f04-a4d9-89a24fab7709",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "yvoty": {
+    "voice_name": "Bella",
+    "voice_id": "eba85120-4ed5-5202-a6f6-696e2c6fe2b6",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  },
+  "jasy": {
+    "voice_name": "Cora",
+    "voice_id": "8c4760aa-b4d2-5313-90a9-01f2d3eecd20",
+    "variant": "elevenlabs",
+    "voice_type": "preset",
+    "estado_editorial": "voz de trabajo, pendiente de escucha y validación regional"
+  }
+}

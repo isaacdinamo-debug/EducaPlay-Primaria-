@@ -5,12 +5,12 @@
    funciona igual y el avance dura lo que dura la pestaña. */
 const CLAVE = 'educaplay-primaria-v2';
 function guardar(){
-  try{ localStorage.setItem(CLAVE, JSON.stringify({done:state.done, col:state.col, voz:state.voz, me:state.me})); }catch(e){}
+  try{ localStorage.setItem(CLAVE, JSON.stringify({done:state.done, col:state.col, voz:state.voz, vozVersion:1, me:state.me})); }catch(e){}
 }
 function cargar(){
   try{
     const d = JSON.parse(localStorage.getItem(CLAVE)||'null'); if(!d) return;
-    state.done = d.done||{}; state.col = d.col||[]; state.voz = !!d.voz; state.me = d.me||null;
+    state.done = d.done||{}; state.col = d.col||[]; state.voz = d.vozVersion===1 && typeof d.voz==='boolean' ? d.voz : true; state.me = d.me||null;
     Object.values(WORLDS).forEach(w=>{ if(w.ready) w.nodes.forEach(n=>{ if(n.mod && state.done[n.mod]) state.seenScenery[w.id+':'+n.mod]=true; }); });
   }catch(e){}
 }
@@ -19,7 +19,7 @@ function cargar(){
 function makeCtx(st){
   return {
     st, mod:P.mod,
-    say(t){ const n=$('#narr-t'); if(n) n.textContent=t; P.last=t; if(!P.consigna) P.consigna=t; if(state.voz) speak(t); },
+    say(t, opciones={}){ const n=$('#narr-t'); if(n) n.textContent=t; P.last=t; if(!P.consigna) P.consigna=t; speak(t,opciones); },
     buddy(mood){ const b=$('#buddy'); if(!b) return; b.classList.remove('happy','think'); void b.offsetWidth; b.classList.add(mood);
       if(mood==='happy') gestoCompanero($('video',b),'festeja'); },
     done(){
@@ -28,6 +28,7 @@ function makeCtx(st){
       nx.hidden=false; nx.textContent = P.i>=P.mod.stations.length-1 ? '¡Terminar!' : 'Seguir';
       nx.onclick = nextStation;
       kapiEstado('anima');
+      festejarVoz();
     }
   };
 }
@@ -38,7 +39,7 @@ function openStation(){
   const nx=$('#next'); nx.hidden=true;
   $$('#dots i').forEach((d,i)=>{ d.classList.toggle('on', i===P.i); if(i>=P.i) d.classList.remove('ok'); });
   $('#stage-wrap').classList.remove('paper');
-  P.consigna=null; P.ayudas=0;
+  P.consigna=null; P.last=null; P.ayudas=0;
   kapiEstado('reposo'); reiniciarQuieto();
   STN[st.type](makeCtx(st), stage);
 }
@@ -68,7 +69,7 @@ function finishModule(){
   kapiEstado('celebra'); gestoCompanero($('#buddy video'),'festeja');
   const yo=$('.finish-yo video'); if(yo) yo.onended=()=>{ yo.onended=null; yo.loop=true; yo.src=`arte/companeros-video/${yo.dataset.quien}-reposo.webm`; yo.play().catch(()=>{}); };
   const msg='¡Aventura completada! Encontraste '+m.reward.name+'.';
-  $('#narr-t').textContent=msg; P.last=msg; if(state.voz) speak(msg);
+  $('#narr-t').textContent=msg; P.last=msg; P.consigna=msg; speak(msg); festejarVoz(true);
 }
 
 /* ============ Kapi por estados ============
@@ -86,10 +87,11 @@ function reiniciarQuieto(){
 document.addEventListener('pointerdown', reiniciarQuieto);
 
 /* ============ ventanas ============ */
-function closeModal(){ const v=$('#veil'); if(v) v.remove(); }
+function closeModal(){ const v=$('#veil'); if(v){ detenerVoz(); v.remove(); } }
 function openModal(html){
-  closeModal();
+  closeModal(); detenerVoz();
   const v=document.createElement('div'); v.className='veil'; v.id='veil'; v.dataset.veil='1'; v.innerHTML=html; document.body.appendChild(v);
+  const hoja=$('.sheet',v); if(hoja) hoja.insertAdjacentHTML('beforeend',`<div class="guia-voz">${controlesVoz()}<p id="voz-modal"></p></div>`);
   const f=$('button.x',v)||$('button',v); if(f) f.focus();
 }
 const CERRAR = `<button class="x" data-act="closeModal" aria-label="Cerrar">${boton('cerrar')}</button>`;
@@ -101,12 +103,14 @@ function openShare(id){
      <button class="btn-oir" data-act="say" data-text="${esc(m.card.voz)}" aria-label="Escuchar">${ico('parlante')}</button></div>
     <p>Quien te acompaña puede ver la propuesta completa: qué hacer, qué preguntar y cómo ayudarte.</p>
     <div class="fila"><a class="btn btn-accion btn-big" href="#/acompanar/tarjeta/${id}">Ver la propuesta</a><button class="btn btn-big" data-act="closeModal">Seguir jugando</button></div></div>`);
+  speak(m.card.voz);
 }
 function openCuaderno(){
   const all=Object.values(MODS);
   openModal(`<div class="sheet" role="dialog" aria-modal="true" aria-label="Mi cuaderno de campo">${CERRAR}
    <h2>${state.me?companeroVivo(state.me,'reposo'):''}Mi cuaderno de campo</h2><p>Cada aventura completada deja un hallazgo. Encontraste ${state.col.length} de ${all.length}.</p>
    <div class="stickers">${all.map(m=>{ const f=state.done[m.id]; return `<div class="stk ${f?'':'off'}">${f?hallazgo(m.reward.icon):respaldo('incognita','')}<span>${f?m.reward.name:'Por descubrir'}</span></div>`; }).join('')}</div></div>`);
+  speak('Tu cuaderno tiene '+state.col.length+(state.col.length===1?' hallazgo.':' hallazgos.')+' Cada aventura completada deja un hallazgo nuevo.',{personaje:'kapi'});
 }
 
 /* ============ router ============ */
@@ -117,6 +121,7 @@ function parseHash(){
 }
 function route(){
   clearTimers(); closeModal();
+  P.mod=null; P.last=null; P.consigna=null;
   const {parts,q}=parseHash(); const [a,b,c,d]=parts;
   let html='', zone='home', after=null;
   if(!a){ html=vIntro(); after=iniciarBienvenida; }
@@ -168,6 +173,7 @@ function route(){
     window.scrollTo(0,0);
     const mn=$('#main'); if(mn) mn.focus({preventScroll:true});
     if(after) after();
+    orientarVoz(parts);
     state.nuevoHallazgo=false;
   };
   /* La pantalla nueva entra deslizándose. Si el navegador no sabe hacer la
@@ -181,10 +187,13 @@ window.addEventListener('hashchange', route);
 /* ============ eventos ============ */
 const ACT = {
   voz(){ state.voz=!state.voz; guardar();
-    $$('[data-act="voz"]').forEach(b=>{ b.classList.toggle('on',state.voz); b.setAttribute('aria-pressed',state.voz); });
-    toast(state.voz?'Voz activada':'Voz apagada'); if(state.voz && P.last && $('#narr-t')) speak(P.last); if(!state.voz){ try{speechSynthesis.cancel();}catch(e){} } },
-  speak(){ if(P.last){ speak(P.last); if(!('speechSynthesis' in window)) toast(P.last); } },
-  say(el){ const t=el.dataset.text; speak(t); if(!('speechSynthesis' in window)) toast(t); },
+    $$('[data-act="voz"]').forEach(b=>{ b.classList.toggle('on',state.voz); b.setAttribute('aria-pressed',state.voz); b.setAttribute('aria-label',state.voz?'Silenciar voz':'Activar voz'); });
+    toast(state.voz?'Voz activada':'Voz apagada');
+    if(state.voz) repetirVoz(); else detenerVoz(); },
+  detenerVoz(){ detenerVoz(); },
+  repetirVoz(){ repetirVoz(); },
+  speak(){ const texto=P.consigna || P.last; if(texto) speak(texto,{manual:true}); },
+  say(el){ speak(el.dataset.text,{manual:true,personaje:el.dataset.personaje || personajeGuia()}); },
   share(){ if(P.mod) openShare(P.mod.id); },
   closeModal(){ closeModal(); },
   cuaderno(){ openCuaderno(); },
@@ -197,7 +206,7 @@ const ACT = {
     const pista = st && st.hint && P.ayudas>1 ? 'Una pista: '+st.hint : (P.consigna||P.last);
     if(!pista) return;
     const n=$('#narr-t'); if(n) n.textContent=pista;
-    speak(pista); if(!('speechSynthesis' in window)) toast(pista);
+    P.last=pista; speak(pista,{manual:true});
     gestoCompanero($('video',el),'saluda'); kapiEstado('anima');
   },
   replay(){ P.i=0; P.finished=false; $$('#dots i').forEach(d=>d.className=''); openStation(); },
@@ -207,6 +216,7 @@ const ACT = {
   elegirme(el){
     if(state.me) return;
     state.me=el.dataset.me; guardar();
+    state.saludoPendiente=state.me;
     if(SIN_MOVIMIENTO){ route(); return; }
     $$('.comp').forEach(c=>c.classList.add(c===el?'elegida':'aparta'));
     const v=$('video',el); gestoCompanero(v,'saluda');
@@ -255,5 +265,6 @@ window.addEventListener('afterprint', ()=>{
 /* ============ arranque ============ */
 document.addEventListener('DOMContentLoaded', ()=>{
     cargar();
+  guardar();
   route();
 });

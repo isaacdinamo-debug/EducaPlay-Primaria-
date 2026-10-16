@@ -75,3 +75,15 @@
  #app .intro-ibera .intro-go{min-height:54px;font-size:22px}
 }
 @media(prefers-reduced-motion:reduce){.amigo-guacamayo .bienvenida-figura{animation:none}}
+
+.bienvenida-voz{margin-top:14px;font-size:clamp(13px,1vw,16px);line-height:1.35;text-align:center;color:var(--tinta);background:#fffaf0e8;padding:8px 12px;border-radius:12px}
+.bienvenida-voz:empty{display:none}
+/* En móvil los controles ocupan dos filas sobre la marca. */
+@media(max-width:700px){.intro-ibera .bienvenida-cabecera{top:18%}.bienvenida-voz{font-size:12px;max-width:30ch}}
+@media(max-width:700px) and (max-aspect-ratio:4/5){
+ .intro-ibera .bienvenida-cabecera{top:114px;width:72%}
+ .intro-ibera .intro-prim{width:40%;margin-top:6px}
+ .intro-ibera .bienvenida-entrada{margin-top:10px}
+ .intro-ibera .bienvenida-voz{font-size:12px;line-height:1.25;margin-top:8px;padding:6px;max-width:100%}
+ .amigo-guacamayo{left:20%;bottom:43%;height:13%;width:30%}
+}

@@ -8,19 +8,11 @@ const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){ const j=rnd(i+1)
 const norm = s => (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-const state = { done:{}, col:[], voz:false, me:null, seenUnlocked:{}, seenScenery:{}, avatar:{} };
+const state = { done:{}, col:[], voz:true, me:null, seenUnlocked:{}, seenScenery:{}, avatar:{} };
 const P = { mod:null, i:0, timers:[], finished:false };
 
 function later(fn, ms){ const t=setTimeout(fn,ms); P.timers.push(t); return t; }
-function clearTimers(){ P.timers.forEach(clearTimeout); P.timers=[]; try{ speechSynthesis.cancel(); }catch(e){} }
-function speak(t){
-  try{
-    if(!('speechSynthesis' in window)) return;
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(t); u.lang='es-AR'; u.rate=.92; u.pitch=1.1;
-    speechSynthesis.speak(u);
-  }catch(e){}
-}
+function clearTimers(){ P.timers.forEach(clearTimeout); P.timers=[]; detenerVoz(); }
 function toast(msg){
   let t=$('#toast'); if(!t) return;
   t.textContent=msg; t.classList.add('on');
@@ -151,7 +143,7 @@ STN['f-dado'] = (ctx, root) => {
         pair=true; drawDice();
         ctx.say('¡Salieron estos puntitos! Cae un fruto por cada uno.');
         for(let i=0;i<n;i++) later(()=>{ k++; lastDrop=k-1; drawAll(); }, 700+i*700);
-        later(()=>{ ctx.say('¡Un fruto para cada puntito! Ahora te toca a vos.'); ctx.buddy('happy'); $('#cesta',root).classList.add('ok'); const g=$('#go',root); g.textContent='Ahora me toca a mí'; g.hidden=false; }, 900+n*700);
+        later(()=>{ ctx.say('¡Un fruto para cada puntito! Ahora te toca a vos.',{sumar:true}); ctx.buddy('happy'); $('#cesta',root).classList.add('ok'); const g=$('#go',root); g.textContent='Ahora me toca a mí'; g.hidden=false; }, 900+n*700);
       } else {
         drawDice(); $('#ok',root).hidden=false;
         ctx.say('Salió el dado. Llená la cesta con tantos frutos como puntitos. Podés arrastrar los frutos del árbol.');
@@ -351,7 +343,6 @@ STN.ordenar = (ctx, root) => {
   ctx.say(st.intro);
   $$('#cards .pcard',root).forEach(c=>c.onclick=()=>{
     const i=+c.dataset.i;
-    if(state.voz) speak(st.items[i].t);
     if(i===next){
       const slot=$(`[data-s="${next}"]`,root);
       const n=c.cloneNode(true); n.classList.add('in'); n.disabled=true;
@@ -398,14 +389,15 @@ STN.clasificar = (ctx, root) => {
 STN.unir = (ctx, root) => {
   const st=ctx.st; let sel=null, ok=0; const N=st.pairs.length;
   const rights=shuffle(st.pairs.map((p,i)=>i));
-  root.innerHTML = `<div class="act"><div class="pair"><div class="col" id="cl">${st.pairs.map((p,i)=>`<button class="pcard" data-s="l" data-i="${i}"><span class="em">${dib(p.a)}</span></button>`).join('')}</div>
+  root.innerHTML = `<div class="act"><div class="pair"><div class="col" id="cl">${st.pairs.map((p,i)=>`<button class="pcard" data-s="l" data-i="${i}" aria-label="${esc(p.a)}"><span class="em">${dib(p.a)}</span></button>`).join('')}</div>
     <div class="col" id="cr">${rights.map(i=>`<button class="pcard" data-s="r" data-i="${i}"><b style="font-size:1.6rem">${esc(st.pairs[i].b)}</b></button>`).join('')}</div></div></div>`;
   ctx.say(st.intro);
   $$('.pcard',root).forEach(c=>c.onclick=()=>{
     if(c.classList.contains('matched')) return;
-    if(state.voz && c.dataset.s==='r') speak(st.pairs[+c.dataset.i].b);
     if(!sel || sel.dataset.s===c.dataset.s){
-      $$('.pcard.sel',root).forEach(x=>x.classList.remove('sel')); sel=c; c.classList.add('sel'); return;
+      $$('.pcard.sel',root).forEach(x=>x.classList.remove('sel')); sel=c; c.classList.add('sel');
+      if(c.dataset.s==='r') speak(st.pairs[+c.dataset.i].b);
+      return;
     }
     if(sel.dataset.i===c.dataset.i){
       [sel,c].forEach(x=>{ x.classList.remove('sel'); x.classList.add('matched'); }); sel=null; ok++;

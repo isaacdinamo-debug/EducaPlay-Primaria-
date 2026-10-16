@@ -7,7 +7,7 @@ const el=()=>({classList:{add(){},remove(){},toggle(){},contains(){return false}
 global.window={matchMedia:()=>({matches:false}),addEventListener(){},scrollTo(){}};
 global.document={querySelector:()=>el(),querySelectorAll:()=>[],addEventListener(){},createElement:el,body:el(),title:''};
 global.location={hash:''};global.localStorage={getItem:()=>null,setItem(){}};global.requestAnimationFrame=()=>{};
-let src=['arte','datos','actividades','vistas','app'].map(f=>fs.readFileSync(path.join(raiz,'js',f+'.js'),'utf8')).join('\n').replace(/'use strict';/g,'');
+let src=['arte','datos','actividades','sonido','vistas','app'].map(f=>fs.readFileSync(path.join(raiz,'js',f+'.js'),'utf8')).join('\n').replace(/'use strict';/g,'');
 src+=`
 state.me='garza';
 const vistas={intro:()=>vIntro(),inicio:()=>vInicio(),equipo:()=>vEquipo(),elegir:()=>vElegir(),explorar:()=>vExplorar(),w1:()=>vWorld(1),w2:()=>vWorld(2),w3:()=>vWorld(3),
